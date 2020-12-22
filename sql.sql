@@ -16,5 +16,7 @@ At new year,you should study new something.
 
 每次面试之前，关于每一类的面试题至少写一个
 
+采用一个spring写一个程序论坛网站 或者一个电商平台 
+
 下周开始复习Java基础知识和掌握REDIS，写一个自己的开源项目
 然后掌握spring 
