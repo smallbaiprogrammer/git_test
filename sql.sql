@@ -93,3 +93,13 @@ WHERE
         GROUP BY DepartmentId
 	)
 ;
+
+
+select Person.FirstName ,
+     Person.LastName ,
+      Address.city,
+      Address.state 
+      from Person 
+        join Address in 
+        Person.PersonId = Address.PersonId
+;
