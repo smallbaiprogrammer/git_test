@@ -148,6 +148,42 @@ WHERE (DEPARTMENT.id, Salary) IN (SELECT DEPARTMENTID , MAX(Salary) FROM EMPLOYE
 ; 
 # 
 
+SELECT FirstName,LastName,city,state FROM Person LEFT JOIN Address ON Person.PersonId = Address.Personid;
+select IFnull ( Salary as 'SecondHighestSalary' from Employee order by Salary desc limit 2,1);
 
-# 关于 spring 框架 
+select Department.name as 'Department' ,
+        Employee.name as 'Name' , 
+        Salary 
+from Department left join Employee
+    on Employee.DepartmentId = Department.Id 
+where (Employee.DEPARTMENTID,Salary) in
+    (select 
+        DepartmentID ,max(Salary)
+        FROM 
+        EMPLOYEE 
+        GROUP BY DepartmentID )
+;
+
+select a.Sorce as 'Sorce ',
+(select count(distinct b.sorce) from Sorces b where b.sorce > a.sorce 
+) as 'Rank' 
+FROM 
+
+SELECT SCORE,(SELECT COUNT(distinct B.SCORE ) FROM SCORES B WHERE B.SCORE > A.SCORE )
+AS 'RANK' FROM SCORES A order BY A.SCORE DESC;
+
+SELECT 
+    (CASE 
+        when mod(id,2) != 0 and counts != id then id + 1
+        when mod(id,2) != 0 and counts = id then id 
+        else id -1
+    end ) as 'id',
+    student 
+From 
+    seat,(select  count(*) as 'counts' from seat) as 'temp'
+    order by id asc
+;
+
+
+    # 关于 spring 框架 
 @ https://www.w3cschool.cn/wkspring/ 
