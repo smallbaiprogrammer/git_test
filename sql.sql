@@ -114,6 +114,28 @@ MVCC 乐观锁的实现 实现了 读-写 写-读 非阻塞 只有在写-写的�
 这种方式其实与JAVA的CopyOnWriteHashmap 类似 这个版本一般是事务结束的时间戳 或者是 随事务增长的id
 @https://yq.aliyun.com/articles/283418
 # 关于Mysql 的 知识上午看 
+主从同步
+主从同步就是主数据库发生变化的时候，从数据库也会跟着变化
+在master 数据库中的，主从同步事件会被写进二进制日志中，在从数据库(slave) 会读取主从同步事件，然后对从数据库进行相应的操作
+主从同步事件会有三种形式
+statement # 将对数据库操作的SQL 语句写于 binlog 中
+row 会将每一条数据的变化写入 Binlog 中
+mixed 二者混合写入Binlog 中 
+在主服务器上进行的操作
+当master 上的数据发生改变的时候，该事件变化会按照顺序被写入binlog中，binlog dump线程待到
+从服务器连接到主服务时，主服务器线程会为slave开启binlog dump 线程，
+当master的binlog 变化时，该线程会通知slave，然后将binlog 内容发送给slave
+
+从服务器上的操作
+当主从同步开启的时候，从服务器上会创建两个线程
+I/O 线程 将服务器中的binlog 发送到从服务器上并保持到relay log 中
+SQL 线程 读取relay log 并且根据内容进行相应操作
+
+
+mysql 
+@ https://blog.csdn.net/ThinkWon/article/details/104778621
+主从复制
+@https://zhuanlan.zhihu.com/p/89796383
 # 下午练习
 # 晚上总结一下
 
@@ -124,6 +146,7 @@ SELECT DEPARTMENT.NAME AS 'DEPARTMENT' , EMPLOYEE.NAME AS 'EMPLOYEE' ,Salary
 FROM DEPARTMENT JOIN EMPLOYEE ON DEPARTMENT.ID = EMPLOYEE.DEPARTMENTID
 WHERE (DEPARTMENT.id, Salary) IN (SELECT DEPARTMENTID , MAX(Salary) FROM EMPLOYEE GROUP BY DEPARTMENTID)
 ; 
+# 
 
 
 # 关于 spring 框架 
