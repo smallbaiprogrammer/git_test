@@ -103,3 +103,10 @@ select Person.FirstName ,
         join Address in 
         Person.PersonId = Address.PersonId
 ;
+
+# 关于 MySQL 的 知识今天全部搞定
+# 关于Mysql 的 知识上午看 
+# 下午练习
+# 晚上总结一下
+
+# 
