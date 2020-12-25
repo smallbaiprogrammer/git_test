@@ -21,6 +21,8 @@ At new year,you should study new something.
 下周开始复习Java基础知识和掌握REDIS，写一个自己的开源项目
 然后掌握spring
 # 查找人数最多的三个城市 
+select city from person group by city having count(id)
+
 country 
 id name location
 select location ,count(id) as number from country order by number desc limit 0,3 ;
@@ -182,6 +184,17 @@ SELECT
 From 
     seat,(select  count(*) as 'counts' from seat) as 'temp'
     order by id asc
+;
+
+select distinct a.* from Stadium a,Stadium b , Stadium c 
+where (a.people >= 100 and  b.people >= 100 and c.people >= 100) and
+((a.id - b.id = 1 and a.id - c.id = 2 and b.id - c.id =1)  -- a, b, c
+or
+(b.id - a.id = 1 and b.id - c.id = 2 and a.id - c.id =1) -- b, a, c
+or
+(c.id - b.id = 1 and b.id - a.id =1 and c.id - a.id = 2)
+)
+order by t1.id asc;
 ;
 
 
