@@ -1,21 +1,25 @@
-public int candy(int[] ratings) {
-int[] leftNums = new int[ratings.length];
-int[] rightNums = new int[ratings.length];
-Arrays.fill(leftNums,1);
-Arrays.fill(rightNums,1);
-for(int i = 1 ; i < ratings.length ; i++ ){
-    if(ratings[i] > ratings[i - 1 ]){
-        leftNums[i] = leftNums[i-1]+1;
+class Solution {
+    public int calPoints(String[] ops) {
+        Stack<Integer> stack = new Stack<>();
+        for(int i = 0 ; i < ops.length ; i++){
+            String temp = ops[i];
+            if(temp.equals("C")){
+                stack.pop();
+            }else if(temp.equals("D")){
+                stack.push(stack.peek()*2);
+            }else if(temp.equals("+")){
+                Integer x1 = stack.pop();
+                Integer x2 = stack.peek();
+                stack.push(x1);
+                stack.push(x1+x2);
+            }else{
+                stack.push(Integer.valueOf(temp));
+            }
+        }
+        int sum = 0;
+        while(!stack.isEmpty()){
+            sum += stack.pop();
+        }
+        return sum;
     }
-}
-for(int i = ratings.length -2 ; i >= 0 ; i--){
-    if(ratings[i]>ratings[i+1]){
-        rightNums[i] = rightNums[i+1] +1;
-    }
-}
-int res = 0;
-for(int i = 0; i < ratings.length ; i++){
-    res += Math.max(leftNums[i],rightNums[i]);
-}
-return res;
 }
